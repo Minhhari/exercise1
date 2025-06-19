@@ -1,15 +1,10 @@
-// src/App.js
-import React from "react";
-import ValidatedInput from "./ValidatedInput";
-import LoginFormValidation from "./LoginFormValidation";
-import MultiFieldForm from "./MultiFieldForm";
+import React from 'react';
+import QuizApp from './Lab3/QuizApp';
 
 function App() {
   return (
-    <div className="container mt-4">
-      {/* <MultiFieldForm /> */}
-      <LoginFormValidation />
-      {/* <ValidatedInput /> */}
+    <div className="App">
+      <QuizApp />
     </div>
   );
 }
