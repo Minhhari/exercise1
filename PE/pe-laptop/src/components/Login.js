@@ -1,36 +1,34 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Container, Row, Col, Form, Button, Card, Alert, Modal } from 'react-bootstrap';
+import { Container, Row, Col, Form, Button, Card, Modal } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 
 const Login = ({ setUser }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [showModal, setShowModal] = useState(false);
-  const [showAlert, setShowAlert] = useState(false);
   const [currentUser, setCurrentUser] = useState('');
   const navigate = useNavigate();
 
-  // Mock user accounts data
   const userAccounts = [
     {
       id: 1,
       username: "admin",
-      password: "1234567",
+      password: "123",
       account_type: "admin",
       status: "active"
     },
     {
       id: 2,
       username: "jane",
-      password: "1234567",
+      password: "123",
       account_type: "user",
       status: "inactive"
     },
     {
       id: 3,
       username: "alice",
-      password: "1234567",
+      password: "123",
       account_type: "user",
       status: "active"
     },
@@ -45,8 +43,12 @@ const Login = ({ setUser }) => {
 
   const handleLogin = (e) => {
     e.preventDefault();
+
+    if (!username.trim() || !password.trim()) {
+      navigate('/*'); // Chuyển sang route 404 - Not Found
+      return;
+    }
     
-    // Check the validity of login credentials
     const user = userAccounts.find(
       account => account.username === username && 
                  account.password === password &&
@@ -58,8 +60,7 @@ const Login = ({ setUser }) => {
       setShowModal(true);
       setUser(user);
     } else {
-      setShowAlert(true);
-      setTimeout(() => setShowAlert(false), 3000);
+      navigate('/*');
     }
   };
 
@@ -82,7 +83,6 @@ const Login = ({ setUser }) => {
                     type="text"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
-                    required
                   />
                 </Form.Group>
                 
@@ -92,19 +92,12 @@ const Login = ({ setUser }) => {
                     type="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    required
                   />
                 </Form.Group>
                 
                 <Button variant="primary" type="submit" className="w-100">
                   Login
                 </Button>
-
-                {showAlert && (
-                  <Alert variant="danger" className="mt-3">
-                    Invalid username or password!
-                  </Alert>
-                )}
               </Form>
             </Card.Body>
           </Card>

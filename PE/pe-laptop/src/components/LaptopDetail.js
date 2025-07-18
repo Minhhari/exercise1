@@ -10,7 +10,6 @@ const LaptopDetail = () => {
   const [error, setError] = useState(false);
   const navigate = useNavigate();
 
-  // Mock laptops data
   const mockLaptops = [
     {
       id: 1,
@@ -178,9 +177,7 @@ const LaptopDetail = () => {
   );
 };
 
-// PropTypes validation
 LaptopDetail.propTypes = {
-  // No required props for this component as it uses useParams
 };
 
 export default LaptopDetail;

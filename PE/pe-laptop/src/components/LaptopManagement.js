@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Container, Row, Col, Form, Button, Card, Alert } from 'react-bootstrap';
+import { Container, Row, Col, Form, Button, Card, Alert, Navbar, Nav, Carousel } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 
 const LaptopManagement = () => {
@@ -91,72 +91,133 @@ const LaptopManagement = () => {
   };
 
   return (
-    <Container className="mt-4">
-      <h2 className="mb-4 text-center">Laptop List</h2>
-      
-      {/* Search Section */}
-      <Row className="mb-4">
-        <Col md={12}>
-          <Form.Control
-            type="text"
-            placeholder="Search by brand or model..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            onKeyPress={handleKeyPress}
-          />
-        </Col>
-      </Row>
+    <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+      <Container className="mt-4" style={{ flex: 1 }}>
+        {/* Navbar Header */}
+        <Navbar bg="light" expand="lg" className="mb-4 rounded">
+          <Container>
+            <Button 
+              variant="outline-primary" 
+              onClick={() => navigate('/home')}
+              className="ms-3"
+            >
+              Home
+            </Button>
+            <Button
+             variant="outline-primary" 
+              onClick={() => navigate('/link')}
+              className="ms-3">
+                Link
+            </Button>
+            <Nav className="ms-auto">
+            </Nav>
+          </Container>
+        </Navbar>
 
-      {/* Laptop Grid */}
-      <Row>
-        {filteredLaptops.map(laptop => (
-          <Col md={3} key={laptop.id} className="mb-4">
-            <Card className="h-100">
-              <Card.Img 
-                variant="top" 
-                src={laptop.image} 
-                alt={`${laptop.brand} ${laptop.model}`}
-                style={{ height: '200px', objectFit: 'cover' }}
-                onError={(e) => {
-                  e.target.src = 'https://via.placeholder.com/300x200?text=No+Image';
-                }}
-              />
-              <Card.Body className="d-flex flex-column">
-                <Card.Title>{laptop.brand} {laptop.model}</Card.Title>
-                <Card.Text>
-                  <strong>Year:</strong> {laptop.year}<br />
-                  <strong>Price:</strong> {laptop.price}
-                </Card.Text>
-                <div>
-                  <Button 
-                    variant="primary" 
-                    onClick={() => handleViewDetails(laptop.id)}
-                    className="mt-3"
-                    style={{
-                      borderRadius: '8px',
-                      minWidth: '100px',
-                      fontWeight: 500,
-                      backgroundColor: '#2076fa',
-                      border: 'none',
-                      textAlign: 'left'
-                    }}
-                  >
-                    View Details
-                  </Button>
-                </div>
-              </Card.Body>
-            </Card>
+        <h2 className="mb-4 text-center">Laptop List</h2>
+
+        {/* Carousel Section */}
+        <Carousel className="mb-4">
+          <Carousel.Item>
+            <img
+              src="/images/dell-xps13.jpg"
+              alt="Dell XPS 13"
+              style={{ width: '100%', height: '300px', objectFit: 'cover' }}
+            />
+            <Carousel.Caption>
+              <h3>Dell XPS 13</h3>
+            </Carousel.Caption>
+          </Carousel.Item>
+          <Carousel.Item>
+            <img
+              src="/images/hp-spectre.jpg"
+              alt="HP Spectre x360"
+              style={{ width: '100%', height: '300px', objectFit: 'cover' }}
+            />
+            <Carousel.Caption>
+              <h3>HP Spectre x360</h3>
+            </Carousel.Caption>
+          </Carousel.Item>
+          <Carousel.Item>
+            <img
+              src="/images/lenovo-thinkpad.jpg"
+              alt="Lenovo ThinkPad X1"
+              style={{ width: '100%', height: '300px', objectFit: 'cover' }}
+            />
+            <Carousel.Caption>
+              <h3>Lenovo ThinkPad X1</h3>
+            </Carousel.Caption>
+          </Carousel.Item>
+        </Carousel>
+
+        {/* Search Section */}
+        <Row className="mb-4">
+          <Col md={12}>
+            <Form.Control
+              type="text"
+              placeholder="Search by brand or model..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              onKeyPress={handleKeyPress}
+            />
           </Col>
-        ))}
-      </Row>
+        </Row>
 
-      {/* No Results Message */}
-      {filteredLaptops.length === 0 && (
-        <Alert variant="info" className="text-center">
-          No laptops found matching your search criteria.
-        </Alert>
-      )}
-    </Container>
+        {/* Laptop Grid */}
+        <Row>
+          {filteredLaptops.map(laptop => (
+            <Col md={3} key={laptop.id} className="mb-4">
+              <Card className="h-100">
+                <Card.Img 
+                  variant="top" 
+                  src={laptop.image} 
+                  alt={`${laptop.brand} ${laptop.model}`}
+                  style={{ height: '200px', objectFit: 'cover' }}
+                  onError={(e) => {
+                    e.target.src = 'https://via.placeholder.com/300x200?text=No+Image';
+                  }}
+                />
+                <Card.Body className="d-flex flex-column">
+                  <Card.Title>{laptop.brand} {laptop.model}</Card.Title>
+                  <Card.Text>
+                    <strong>Year:</strong> {laptop.year}<br />
+                    <strong>Price:</strong> {laptop.price}
+                  </Card.Text>
+                  <div>
+                    <Button 
+                      variant="primary" 
+                      onClick={() => handleViewDetails(laptop.id)}
+                      className="mt-3"
+                      style={{
+                        borderRadius: '8px',
+                        minWidth: '100px',
+                        fontWeight: 500,
+                        backgroundColor: '#2076fa',
+                        border: 'none',
+                        textAlign: 'left'
+                      }}
+                    >
+                      View Details
+                    </Button>
+                  </div>
+                </Card.Body>
+              </Card>
+            </Col>
+          ))}
+        </Row>
+
+        {/* No Results Message */}
+        {filteredLaptops.length === 0 && (
+          <Alert variant="info" className="text-center">
+            No laptops found matching your search criteria.
+          </Alert>
+        )}
+      </Container>
+      {/* Footer */}
+      <footer className="bg-light text-center py-3 mt-4 border-top">
+        © 2025 Laptop Management. All rights reserved.
+      </footer>
+    </div>
   );
 };
 

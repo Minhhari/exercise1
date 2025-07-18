@@ -12,7 +12,9 @@ function App() {
         <Route path="/login" element={<Login setUser={setUser} />} />
         <Route path="/laptops" element={<LaptopManagement />} />
         <Route path="/laptops/:id" element={<LaptopDetail />} />
-        <Route path="*" element={<h2>404 - Not Found</h2>} />
+        <Route path="/*" element={<h2>404 - Not Found</h2>} />
+        <Route path="/home" element={<h2>Welcome to Laptop Management Home Page</h2>} />
+        <Route path="/link" element={<h2>More Link</h2>} />
       </Routes>
     </Router>
   );
